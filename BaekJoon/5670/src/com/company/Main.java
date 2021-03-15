@@ -84,31 +84,31 @@ class Trie {
         return result;
     }
 }
-
-public class Main {
-    static final int SIZE = 26;
-    static int cnt = 0;
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String line;
-        while ((line = br.readLine()) != null) {
-            Trie trie = new Trie();
-            int N = Integer.parseInt(line);
-            String[] str = new String[N];
-
-            for (int i = 0; i < N; i++) {
-                str[i] = br.readLine();
-                trie.insert(str[i]);
-            }
-            for (int i = 0; i < SIZE; i++) {
-                if (trie.root.children[i] != null) {
-                    trie.check(trie.root.children[i], 1);
-                }
-            }
-            System.out.printf("%.2f", (double) cnt / N);
-            System.out.println();
-            cnt = 0;
-        }
-    }
-}
+//
+//public class Main {
+//    static final int SIZE = 26;
+//    static int cnt = 0;
+//
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        String line;
+//        while ((line = br.readLine()) != null) {
+//            Trie trie = new Trie();
+//            int N = Integer.parseInt(line);
+//            String[] str = new String[N];
+//
+//            for (int i = 0; i < N; i++) {
+//                str[i] = br.readLine();
+//                trie.insert(str[i]);
+//            }
+//            for (int i = 0; i < SIZE; i++) {
+//                if (trie.root.children[i] != null) {
+//                    trie.check(trie.root.children[i], 1);
+//                }
+//            }
+//            System.out.printf("%.2f", (double) cnt / N);
+//            System.out.println();
+//            cnt = 0;
+//        }
+//    }
+//}
