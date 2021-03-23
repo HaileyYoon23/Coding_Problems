@@ -3,6 +3,7 @@ package com.company;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ public class Main {
     public static int[][] sudoku = new int[9][];
     public static boolean[][] visited = new boolean[9][10];
     public static List<Point> list = new LinkedList<>();
+    public static boolean isOver = false;
     public static void main(String[] args) throws IOException {
 	// write your code here
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -36,13 +38,15 @@ public class Main {
         }
     }
     public static void DFS(int count) {
+        List<Integer> checked = new LinkedList<>();
         if(count == list.size()) {
+            isOver = true;
             return;
         }
         Point p = list.get(count);
         for(int i = 1; i <= 9; i++) {
             Boolean check = true;
-            if(visited[(p.i/3)*3 + (p.j/3)][i] == false) {
+            if(visited[(p.i/3)*3 + (p.j/3)][i] == false && isOver == false) {
                 for(int a = 0; a < 9; a++) {
                     if(i == sudoku[p.i][a]) {
                         check = false;
@@ -53,14 +57,24 @@ public class Main {
                         break;
                     }
                 }
-                if(check) {
+                if(check && !checked.contains(i)) {
                     visited[(p.i/3)*3 + (p.j/3)][i] = true;
+                    checked.add(i);
                     sudoku[p.i][p.j] = i;
                     DFS(count+1);
-                    visited[(p.i/3)*3 + (p.j/3)][i] = false;
+                    if(isOver == false) {
+                        visited[(p.i/3)*3 + (p.j/3)][i] = false;
+                        sudoku[p.i][p.j] = 0;
+                        i = 1;
+                    }
+
                 }
             }
         }
+        while(!checked.isEmpty()) {
+            checked.remove(0);
+        }
+
     }
 }
 
