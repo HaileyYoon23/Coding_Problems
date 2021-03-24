@@ -3,37 +3,46 @@ package com.company;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
 
-    public static int [] arr;
+    public static int[] arr;
+    public static int N;
+    public static int max;
     public static void main(String[] args) throws IOException {
 	// write your code here
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         String[] info = br.readLine().split(" ");
-        int N = Integer.parseInt(info[0]);
-        int M = Integer.parseInt(info[1]);
+        N = Integer.parseInt(info[0]);
+        Long M = Long.parseLong(info[1]);
         arr = Arrays.stream(br.readLine().split(" "))
                 .mapToInt(Integer::parseInt).sorted().toArray();
-        int sum = Arrays.stream(arr).sum();
-        int sIdx = 0;
-        int eIdx = arr.length - 1;
-        int sValue = 0;
-        int eValue = arr[eIdx];
-        int mValue;
-        int sol = 0;
-        int mIdx = 0;
-        while(true) {
-            mIdx = (sIdx + eIdx) / 2;
-            mValue = (sValue + eValue) / 2;
-            if(mIdx == 0) {
-                sol = sum - (N) * mValue;
-            } else if(mValue < arr[mIdx] - 1 && mValue >= arr[mIdx-1]) {
-                sol = sum - (N-mIdx) * mValue;
-            }
-        }
+        max = arr[N-1];
+        sb.append(upperBound(M));
 
+        System.out.print(sb);
+    }
+    public static long getWoodLength(long height) {
+        long result = 0;
+        for(int i = 0; i < N; i++) {
+            if(height < arr[i]) result += (arr[i] - height);
+        }
+        return result;
+    }
+    public static long upperBound(long woodLength) {
+        long s = 0;
+        long e = max;
+        long m = 0;
+        long result = 0;
+        while(s <= e) {
+            m = (s + e) / 2;
+            if(getWoodLength(m) >= woodLength) {
+                s = m+1;
+            }
+            else e = m - 1;
+        }
+        return e;
     }
 }
