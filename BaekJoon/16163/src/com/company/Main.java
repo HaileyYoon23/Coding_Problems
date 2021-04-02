@@ -5,12 +5,12 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static int[] palin = new int[4_000_002];
+    public static int result = 0;
     public static void main(String[] args) throws Exception{
 	// write your code here
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String s = br.readLine();
         String temp = "";
-        int result = 0;
 
         for(int i = 0; i < s.length(); i++) {
             temp += "#";
@@ -20,10 +20,6 @@ public class Main {
 
         palindrome(temp);
 
-        for(int i = 0; i < temp.length(); i++) {
-            if(palin[i] == 0) continue;
-            result += (palin[i] + 1) / 2;
-        }
         System.out.print(result);
     }
 
@@ -47,6 +43,7 @@ public class Main {
                 center = i;
                 radius = i + palin[i];
             }
+            result += (palin[i] + 1) / 2;
         }
     }
 }
