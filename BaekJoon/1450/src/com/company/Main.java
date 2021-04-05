@@ -1,11 +1,7 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static int[] weights;
@@ -16,7 +12,6 @@ public class Main {
     public static int N;
     public static int index;
     public static void main(String[] args) throws IOException {
-	// write your code here
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] info = br.readLine().split(" ");
         N = Integer.parseInt(info[0]);
@@ -40,7 +35,6 @@ public class Main {
             result += index + 1;
         }
 
-//        DFS(0,0);
         System.out.println(result);
         br.close();
 
@@ -70,17 +64,4 @@ public class Main {
         }
     }
 
-//    public static void DFS(int sum, int k) {
-//        if(sum > C) {
-//            result -= 1;
-//            return;
-//        }
-//        if(k >= N) return;
-//        for(int i = k; i < N; i++) {
-//            sum += weights[i];
-//            result += 1;
-//            DFS(sum,i+1);
-//            sum -= weights[i];
-//        }
-//    }
 }

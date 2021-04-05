@@ -14,29 +14,34 @@ public class Main {
         N = pattern.length();
         M = Integer.parseInt(br.readLine());
         z = new int[N];
-
+        L = N-1; R = N-1;
         Zalgorithm(pattern);
 
-        for(int i = 0; i < M; i++) {
-            sb.append(z[i] + "\n");
+        for(int m = 0; m < M; m++) {
+            int cmd = Integer.parseInt(br.readLine());
+            if(cmd == N) {
+                sb.append(N+"\n");
+            } else {
+                sb.append(z[cmd-1]+"\n");
+            }
         }
         System.out.println(sb);
     }
     public static void Zalgorithm(String pattern) {
-        for(int i = 1; i < N; i++) {
-            if(i > R) {
+        for(int i = N-2; i >= 0; i--) {
+            if(i < R) {
                 L = R = i;
-                while(R < N && pattern.charAt(R-L) == pattern.charAt(R)) R++;
-                z[i] = R - L;
-                R--;
+                while(R >= 0 && pattern.charAt(N-1-(L-R)) == pattern.charAt(R)) R--;
+                z[i] = L - R;
+                R++;
             } else {
-                int K = i - L;
-                if(z[K] <= R - i) z[i] = z[K];
+                int K = N - 1 - (L - i);
+                if(z[K] <= i - R) z[i] = z[K];
                 else {
                     L = i;
-                    while(R < N && pattern.charAt(R-L) == pattern.charAt(R)) R++;
-                    z[i] = R - L;
-                    R--;
+                    while(R >= 0 && pattern.charAt(N-1-(L-R)) == pattern.charAt(R)) R--;
+                    z[i] = L - R;
+                    R++;
                 }
             }
         }
