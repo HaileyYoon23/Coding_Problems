@@ -5,32 +5,69 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Main {
     public static void main(String[] args) {
-        Map<Integer, String> map = new ConcurrentHashMap<>();
-        System.out.println(map.putIfAbsent(1,"First"));
-        System.out.println(map.putIfAbsent(1,"Second"));
+        String s = "}]()[{";
+        System.out.println((new Solution()).solution(s));
     }
 }
 
-class Result {
-
-    /*
-     * Complete the 'oddNumbers' function below.
-     *
-     * The function is expected to return an INTEGER_ARRAY.
-     * The function accepts following parameters:
-     *  1. INTEGER l
-     *  2. INTEGER r
-     */
-
-    public static List<Integer> oddNumbers(int l, int r) {
-        List<Integer> result = new LinkedList<>();
-        for(int i = l; i <= r; i++) {
-            if(i % 2 == 1) {
-                result.add(i);
-                i++;
+class Solution {
+    private static Stack<Character> stack = new Stack<>();
+    public int solution(String s) {
+        int answer = 0;
+        int len = s.length();
+        for(int k = 0; k < len - 1; k++) {
+            stack = new Stack<>();
+            stack.add(s.charAt(0));
+            int count = 1;
+            for(int i = 1; i < len; i++) {
+                char c = s.charAt(i);
+                boolean check = false;
+                if(isReversed(c) && (stack.isEmpty() || !isSame(stack.peek(),c))) {
+                    count = 1;
+                    break;
+                }
+                if(!stack.isEmpty() && isSame(stack.peek(), c)) {
+                    stack.pop();
+                    count--;
+                    check = true;
+                }
+                if(!check) {
+                    stack.add(c);
+                    count++;
+                }
             }
+            if(count == 0) answer++;
+            s = turnLeft(s);
         }
-        return result;
-    }
 
+        return answer;
+    }
+    private static boolean isSame(char s, char e) {
+        switch (s){
+            case '[':
+                if(e == ']') return true;
+                else return false;
+            case '(':
+                if(e == ')') return true;
+                else return false;
+            case '{':
+                if(e == '}') return true;
+                else return false;
+            default:
+                return false;
+        }
+    }
+    private static String turnLeft(String s) {
+        return s.substring(1,s.length()) + s.substring(0,1);
+    }
+    private static boolean isReversed(char c) {
+        switch(c) {
+            case '}':
+            case ')':
+            case ']':
+                return true;
+            default:
+                return false;
+        }
+    }
 }
