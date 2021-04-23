@@ -17,7 +17,7 @@ public class Main {
 
         while(arr.size() != 1) {
             compareSum = arr.poll() + arr.poll();
-            arr.remove(0);
+//            arr.remove(0);
             arr.add(compareSum);
             result += compareSum;
         }
