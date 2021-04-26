@@ -45,16 +45,10 @@ public class Main {
     }
 }
 
-//class Node {
-//    int num;
-//    boolean isTerminate;
-//}
-
 class Tree {
     Tree[] nodeList = new Tree[10];
     int count;
     boolean isTerminate;
-//    Node curNode;
     Tree() {
         for(int i = 0; i < 10; i++) {
             this.nodeList[i] = null;
